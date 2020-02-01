@@ -10,7 +10,9 @@ namespace DisasterMaps.Models
         [System.ComponentModel.DataAnnotations.Key]
         public String Name { get; set; }
 
-        public double Coordinates { get; set; }
+        public double XCoordinates { get; set; }
+
+        public double YCoordinates { get; set; }
 
         public DateTime ClosingTime { get; set; }
 

@@ -30,7 +30,7 @@ namespace DisasterMaps.Controllers
             {
                 double testCoor = 10.1;
                 DateTime time = DateTime.Now;
-                Store temp = new Store { Name = "TestVersion3bby", OpeningTime = time, ClosingTime = time, Coordinates = testCoor, IsOpen = true };
+                Store temp = new Store { Name = "TestDBEntry", OpeningTime = time, ClosingTime = time, XCoordinates = testCoor, YCoordinates=11.2, IsOpen = true };
 
                 context.Stores.Add(temp);
 
@@ -39,6 +39,9 @@ namespace DisasterMaps.Controllers
 
                 var exists = context.Stores.OrderBy(b => b.Name).Last();
                 Debug.WriteLine(exists.Name);
+
+                context.Stores.Remove(temp);
+                context.SaveChanges();
             }
             return View();
         }
