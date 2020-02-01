@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DisasterMaps.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DisasterMaps.Controllers
 {
@@ -22,7 +23,23 @@ namespace DisasterMaps.Controllers
 
         public IActionResult Index()
         {
-            //HazardModel test = hazardContext.GetElementById
+            var optionsBuilder = new DbContextOptionsBuilder<AppContext>();
+
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=disaster_database;Trusted_Connection=True;");
+            using (var context = new AppContext(optionsBuilder.Options))
+            {
+                double testCoor = 10.1;
+                DateTime time = DateTime.Now;
+                Store temp = new Store { Name = "TestVersion3bby", OpeningTime = time, ClosingTime = time, Coordinates = testCoor, IsOpen = true };
+
+                context.Stores.Add(temp);
+
+                Debug.WriteLine("Inserting test store");
+                context.SaveChanges();
+
+                var exists = context.Stores.OrderBy(b => b.Name).Last();
+                Debug.WriteLine(exists.Name);
+            }
             return View();
         }
 
