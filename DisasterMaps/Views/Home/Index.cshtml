@@ -2,7 +2,29 @@
     ViewData["Title"] = "Home Page";
 }
 
+<head>
+    <script>
+    function submit_by_name()
+    {
+        var Zip = document.getElementById("ZipcodeForm").value;
+        ViewData["Zip"] = Zip;
+    }
+    </script>
+    
+</head>
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 id="padTopBot" class="display-4">Disaster Maps</h1>
+    <img src="https://image.flaticon.com/icons/svg/1788/1788740.svg" alt="Icon" style="width:250px;height:250px;">
 </div>
+
+<form asp-controller="Home" asp-action="Map" method="post">
+    <div id="padTopBotLg" class="form-group text-center font-weight-bold">
+        <label>Zipcode</label>
+        <input name="Zipcode" id="ZipcodeForm" class="form-control" placeholder="10101" maxlength="5">
+    </div>
+    <div>
+        <input id="centerDiv"  class="btn btn-outline-dark btn-lg" type="submit" value="Submit" onclick="submit_by_name()">
+    </div>
+</form>
+

@@ -23,7 +23,7 @@ namespace DisasterMaps.Controllers
 
         public IActionResult Index()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<AppContext>();
+            /*var optionsBuilder = new DbContextOptionsBuilder<AppContext>();
 
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=disaster_database;Trusted_Connection=True;");
             using (var context = new AppContext(optionsBuilder.Options))
@@ -42,13 +42,19 @@ namespace DisasterMaps.Controllers
 
                 context.Stores.Remove(temp);
                 context.SaveChanges();
-            }
+            }*/
             return View();
         }
 
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Map(MapModel theModel)
+        {
+            return View(theModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

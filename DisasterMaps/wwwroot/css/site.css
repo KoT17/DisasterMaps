@@ -54,13 +54,17 @@ button.accept-policy {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    height: 100%;
+    width: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    border-top: 5px solid darkseagreen;
+    background-color: darkseagreen;
+    
 }
 .footer {
   position: absolute;
@@ -68,4 +72,22 @@ body {
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+  background-color: azure;
+  text-align: center;
+}
+
+#padTopBot {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#padTopBotLg {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+#centerDiv {
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
 }
