@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -54,6 +55,36 @@ namespace DisasterMaps.Controllers
         [HttpPost]
         public IActionResult Map(MapModel theModel)
         {
+
+            HttpClient client = new HttpClient();
+
+            string str = "https://maps.googleapis.com/maps/api/geocode/json?";
+
+            string addressNoSpace = theModel.Address.Replace(' ', '+');
+            
+            string cityNoSpace = theModel.City.Replace(' ', '+');
+
+
+            str += "address=" + addressNoSpace + "," + cityNoSpace + "," + theModel.State
+                + "&key=AIzaSyDW3iu6fobk-ymUoQHDTdaflFDyGofUfbQ";
+
+            var res = client.GetAsync(str).Result.Content.ReadAsStringAsync().Result;
+
+            string result1 = res.Substring(res.IndexOf("lat") + 7);
+
+            result1 = result1.Substring(0, result1.IndexOf(','));
+
+            string result2 = res.Substring(res.IndexOf("lng") + 7);
+
+            result2 = result2.Substring(0, result2.IndexOf('\n'));
+
+            var lat = result1;
+            var lon = result2;
+
+
+            theModel.Latitude = Double.Parse(lat);
+            theModel.Longitude = Double.Parse(lon);
+
             return View(theModel);
         }
 

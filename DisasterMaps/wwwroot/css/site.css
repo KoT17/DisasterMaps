@@ -56,7 +56,6 @@ button.accept-policy {
 html {
     position: relative;
     height: 100%;
-    width: 100%;
 }
 
 body {
@@ -76,6 +75,12 @@ body {
   text-align: center;
 }
 
+.container {
+    margin-left: 0%;
+    margin-right: 0%;
+    text-align: center;
+}
+
 #padTopBot {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -90,4 +95,13 @@ body {
     width: 40%;
     margin-left: 30%;
     margin-right: 30%;
+}
+
+#centerMap {
+    width: 100%;
+    text-align: center;
+}
+#map {
+    width: 100%;
+    display: inline-block;
 }

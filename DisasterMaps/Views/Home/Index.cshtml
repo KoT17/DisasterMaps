@@ -20,8 +20,15 @@
 
 <form asp-controller="Home" asp-action="Map" method="post">
     <div id="padTopBotLg" class="form-group text-center font-weight-bold">
-        <label>Zipcode</label>
-        <input name="Zipcode" id="ZipcodeForm" class="form-control" placeholder="10101" maxlength="5">
+
+        <label>Address</label>
+        <input name="Address" id="AddressForm" class="form-control" placeholder="101 SwampHack Drive" maxlength="30">
+
+        <label>City</label>
+        <input name="City" id="CityForm" class="form-control" placeholder="Gainsville" maxlength="30">
+
+        <label>State</label>
+        <input name="State" id="StateForm" class="form-control text-uppercase" placeholder="FL" maxlength="2">
     </div>
     <div>
         <input id="centerDiv"  class="btn btn-outline-dark btn-lg" type="submit" value="Submit" onclick="submit_by_name()">

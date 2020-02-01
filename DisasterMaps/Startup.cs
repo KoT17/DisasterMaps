@@ -28,6 +28,11 @@ namespace DisasterMaps
             services.AddControllersWithViews();
             services.AddDbContext<AppContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddHttpClient("mapClient", c =>
+            {
+                c.BaseAddress = new Uri("https://maps.googleapis.com/maps/api/geocode/");
+            });
         } 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

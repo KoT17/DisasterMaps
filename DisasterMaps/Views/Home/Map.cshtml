@@ -3,5 +3,25 @@
     ViewData["Title"] = "Map Page";
 }
 
-<h1>@Model.Zipcode</h1>
-<h1>HELLO WORLD!</h1>
+<div id="centerMap">
+    <div id="map" style="height: 75vh; width: 90vw;"></div>
+</div>
+
+
+<script>
+    var map;
+    function initMap() {
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: @Model.Latitude, lng: @Model.Longitude},
+            zoom: 16
+        });
+
+
+    }
+</script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW3iu6fobk-ymUoQHDTdaflFDyGofUfbQ&callback=initMap"
+        async defer></script>
+
