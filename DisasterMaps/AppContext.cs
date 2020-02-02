@@ -11,6 +11,8 @@ namespace DisasterMaps
     {
         public DbSet<Store> Stores { get; set; }
 
+        public DbSet<Hazard> Hazards { get; set; }
+
         public AppContext(DbContextOptions<AppContext> options) : base(options)
         {
             
@@ -19,6 +21,7 @@ namespace DisasterMaps
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Store>().ToTable("Stores");
+            modelBuilder.Entity<Hazard>().ToTable("Hazards");
         }
 
        

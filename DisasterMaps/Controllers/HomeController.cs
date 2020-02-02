@@ -52,6 +52,40 @@ namespace DisasterMaps.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Hazards(MapModel theModel)
+        {
+            var allHazards = _context.Hazards.ToList();
+            double[] distances = new double[allHazards.Count];
+            Tuple<double, Hazard>[] pair = new Tuple<double, Hazard>[10];
+            List<Hazard> localHazards = new List<Hazard>();
+
+            for (int i = 0; i < allHazards.Count; i++)
+            {
+                Hazard current = allHazards[i];
+                distances[i] = Math.Pow((Math.Pow((current.Latitude - theModel.Latitude), 2) + (Math.Pow((current.Longitude - theModel.Longitude), 2))), .5);
+                pair[i] = new Tuple<double, Hazard>(distances[i], current);
+            }
+        
+            int count = 0;
+            Array.Sort(distances);
+            while (count < 10 && count < distances.Length)
+            {
+                for (int j = 0; j < pair.Length; j++)
+                {
+                    if (pair[j].Item1 == distances[count])
+                    {
+                        localHazards.Add(pair[j].Item2);
+                        break;
+                    }
+                }
+                count++;
+            }
+
+            var HazardViewModel = new HazardViewModel { userLatitude = theModel.Latitude, userLongitude = theModel.Longitude, Hazards = localHazards };
+            return View(HazardViewModel); // The model for this will contain a list of hazards.
+        }
+
         [HttpPost]
         public IActionResult Map(MapModel theModel)
         {

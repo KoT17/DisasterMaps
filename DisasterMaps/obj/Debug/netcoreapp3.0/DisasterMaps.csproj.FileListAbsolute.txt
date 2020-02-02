@@ -139,3 +139,4 @@ C:\Users\ferra\Source\Repos\DisasterMaps\DisasterMaps\obj\Debug\netcoreapp3.0\Di
 C:\Users\ferra\Source\Repos\DisasterMaps\DisasterMaps\obj\Debug\netcoreapp3.0\DisasterMaps.csproj.CopyComplete
 C:\Users\ferra\Source\Repos\DisasterMaps\DisasterMaps\obj\Debug\netcoreapp3.0\DisasterMaps.dll
 C:\Users\ferra\Source\Repos\DisasterMaps\DisasterMaps\obj\Debug\netcoreapp3.0\DisasterMaps.pdb
+C:\Users\dieg\source\repos\DisasterMaps\DisasterMaps\obj\Debug\netcoreapp3.0\Razor\Views\Home\Map.cshtml.g.cs
