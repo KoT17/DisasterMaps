@@ -24,6 +24,8 @@ namespace DisasterMaps.Controllers
 
         public IActionResult Index()
         {
+            //CleanHazardDatabase();
+            //populateHazardDatabase();
             /*var optionsBuilder = new DbContextOptionsBuilder<AppContext>();
 
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=disaster_database;Trusted_Connection=True;");
@@ -55,38 +57,13 @@ namespace DisasterMaps.Controllers
         [HttpGet]
         public IActionResult Hazards(MapModel theModel)
         {
-            var allHazards = _context.Hazards.ToList();
-            double[] distances = new double[allHazards.Count];
-            Tuple<double, Hazard>[] pair = new Tuple<double, Hazard>[10];
-            List<Hazard> localHazards = new List<Hazard>();
-
-            for (int i = 0; i < allHazards.Count; i++)
-            {
-                Hazard current = allHazards[i];
-                distances[i] = Math.Pow((Math.Pow((current.Latitude - theModel.Latitude), 2) + (Math.Pow((current.Longitude - theModel.Longitude), 2))), .5);
-                pair[i] = new Tuple<double, Hazard>(distances[i], current);
-            }
-        
-            int count = 0;
-            Array.Sort(distances);
-            while (count < 10 && count < distances.Length)
-            {
-                for (int j = 0; j < pair.Length; j++)
-                {
-                    if (pair[j].Item1 == distances[count])
-                    {
-                        localHazards.Add(pair[j].Item2);
-                        break;
-                    }
-                }
-                count++;
-            }
+            var localHazards = GetClosestHazards(theModel);
 
             var HazardViewModel = new HazardViewModel { userLatitude = theModel.Latitude, userLongitude = theModel.Longitude, Hazards = localHazards };
             return View(HazardViewModel); // The model for this will contain a list of hazards.
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Map(MapModel theModel)
         {
             if (theModel.Latitude == 0 && theModel.Longitude == 0)
@@ -133,6 +110,8 @@ namespace DisasterMaps.Controllers
                 theModel.Longitude = Double.Parse(lon);
             }
 
+            theModel.NearbyHazards = GetClosestHazards(theModel);
+
             return View(theModel);
         }
 
@@ -150,7 +129,12 @@ namespace DisasterMaps.Controllers
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=disaster_database;Trusted_Connection=True;");
             using (var context = new AppContext(optionsBuilder.Options))
             {
-                Hazard temp = new Hazard { Latitude = theModel.Latitude, Longitude = theModel.Longitude, PosReport = theModel.PosReport, NegReport = theModel.NegReport };
+                Hazard temp = new Hazard { Latitude = theModel.Latitude,
+                    Longitude = theModel.Longitude,
+                    PosReport = 0,
+                    NegReport = 0,
+                    Name = theModel.Name,
+                    Description = theModel.Description };
 
                 context.Hazards.Add(temp);
                 context.SaveChanges();
@@ -158,20 +142,27 @@ namespace DisasterMaps.Controllers
 
             return RedirectToAction("Hazards", "Home");
         }
-        public void CreateThreeEntries()
+
+
+        public void populateHazardDatabase()
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppContext>();
 
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=disaster_database;Trusted_Connection=True;");
             using (var context = new AppContext(optionsBuilder.Options))
             {
-                var temp = new Hazard { Longitude = 12, Latitude = 13, PosReport = 10, NegReport = 5 };
-                var temp1 = new Hazard { Longitude = 1, Latitude = 2, PosReport = 11, NegReport = 6 };
-                var temp2 = new Hazard { Longitude = 5, Latitude = 6, PosReport = 9, NegReport = 40 };
+                var temp = new Hazard { Longitude = 29.620001, Latitude = -82.30193, PosReport = 10, NegReport = 5, Description = "Street is flooded", Name = "Street Flood" };
+                var temp1 = new Hazard { Longitude = 29.59111, Latitude = -82.32000, PosReport = 21, NegReport = 6, Description = "There is a broken streetlight on the side of the road.", Name = "Broken Streetlight" };
+                var temp2 = new Hazard { Longitude = 29.541234, Latitude = -82.41222, PosReport = 9, NegReport = 40, Description = "The path to Sun Trail is blocked from a fallen tree", Name = "Sun Trail is closed" };
+                var temp3 = new Hazard { Longitude = 29.748201, Latitude = -82.18765, PosReport = 500, NegReport = 0, Description = "Hackers on the loose!", Name = "Hackathon!" };
+                var temp4 = new Hazard { Longitude = 29.648201, Latitude = -82.344745, PosReport = 1, NegReport = 50, Description = "Hey I'm just posting this for giggles", Name = "Dummy Hazard" };
+
 
                 context.Hazards.Add(temp);
                 context.Hazards.Add(temp1);
                 context.Hazards.Add(temp2);
+                context.Hazards.Add(temp3);
+                context.Hazards.Add(temp4);
 
                 context.SaveChanges();
             }
@@ -182,6 +173,48 @@ namespace DisasterMaps.Controllers
             {
                 Console.WriteLine(h.Haz);
             }
+        }
+        public void CleanHazardDatabase()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<AppContext>();
+
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=disaster_database;Trusted_Connection=True;");
+            using (var context = new AppContext(optionsBuilder.Options))
+            {
+                var list = context.Hazards.ToList<Hazard>();
+                context.Hazards.RemoveRange(list);
+                context.SaveChanges();
+            }
+        }
+        public List<Hazard> GetClosestHazards(MapModel theModel)
+        {
+            var allHazards = _context.Hazards.ToList();
+            double[] distances = new double[allHazards.Count];
+            Tuple<double, Hazard>[] pair = new Tuple<double, Hazard>[10];
+            List<Hazard> localHazards = new List<Hazard>();
+
+            for (int i = 0; i < allHazards.Count; i++)
+            {
+                Hazard current = allHazards[i];
+                distances[i] = Math.Pow((Math.Pow((current.Latitude - theModel.Latitude), 2) + (Math.Pow((current.Longitude - theModel.Longitude), 2))), .5);
+                pair[i] = new Tuple<double, Hazard>(distances[i], current);
+            }
+
+            int count = 0;
+            Array.Sort(distances);
+            while (count < 10 && count < distances.Length)
+            {
+                for (int j = 0; j < pair.Length; j++)
+                {
+                    if (pair[j].Item1 == distances[count])
+                    {
+                        localHazards.Add(pair[j].Item2);
+                        break;
+                    }
+                }
+                count++;
+            }
+            return localHazards;
         }
     }
 }

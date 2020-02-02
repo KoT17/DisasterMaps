@@ -15,6 +15,9 @@ namespace DisasterMaps.Models
         public double Longitude { get; set; }
 
         //public Image Photo { get; set; }
+        public string Name { get; set; }
+
+        public string Description { get; set; }
 
         public int PosReport { get; set; }
 

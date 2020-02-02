@@ -1,15 +1,16 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+
 }
 
-    <head>
-        <script>
-            function submit_by_name() {
+<head>
+    <script>
+        function submit_by_name() {
 
-            }
-        </script>
-        
-    </head>
+        }
+    </script>
+
+</head>
 
 
 
@@ -19,11 +20,11 @@
             <input type="checkbox" id="toggleBtn" onclick="togHid()"><span style="padding-left: 8px; padding-top: 10px;">Enable Location</span></input>
         </label>
     </div>
-    <h1 id="padTopBot" class="display-4">Disaster Maps</h1>
+    <h1 id="padTopBot" class="display-4">HazMaps</h1>
     <img src="https://image.flaticon.com/icons/svg/1788/1788740.svg" alt="Icon" style="width:250px;height:250px;">
 </div>
 
-<form asp-controller="Home" asp-action="Map" method="post">
+<form asp-controller="Home" asp-action="Map" method="get">
     <div id="padTopBotLg" class="form-group text-center font-weight-bold">
 
         <label>Address</label>
@@ -40,7 +41,7 @@
 
     </div>
     <div>
-        <input id="centerDiv"  class="btn btn-outline-dark btn-lg" type="submit" value="Submit" onclick="submit_by_name()">
+        <input id="centerDiv" class="btn btn-outline-dark btn-lg" type="submit" value="Submit" onclick="submit_by_name()">
     </div>
 </form>
 
@@ -51,25 +52,25 @@
         if (x.style.display === "none") {
 
             x.style.display = "block";
-            
+
             document.getElementById("LatId").value = "";
             document.getElementById("LngId").value = "";
 
         } else {
 
             x.style.display = "none";
-            
+
             getLocation();
 
         }
     }
 
     function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-        alert("Geolocation is not supported by this browser");
-      }
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert("Geolocation is not supported by this browser");
+        }
     }
 
     function showPosition(position) {

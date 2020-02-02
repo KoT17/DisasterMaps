@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DisasterMaps.Models
@@ -14,6 +15,7 @@ namespace DisasterMaps.Models
         public double Longitude { get; set; }
 
         public double Latitude { get; set; }
+        public List<Hazard> NearbyHazards { get; set; }
 
     }
 }
