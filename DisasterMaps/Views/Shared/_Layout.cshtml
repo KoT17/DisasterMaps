@@ -18,11 +18,15 @@
 
     @if (!ViewData["Title"].Equals("Home Page"))
     {
-        <div class="pos-f-t">
+        <div class="pos-f-t" style="text-align: center;">
             <div class="collapse fixed-bottom" id="navbarToggleExternalContent">
                 <div class="bg-dark p-4">
-                    <h4 class="text-white">Collapsed content</h4>
-                    <span class="text-muted">Toggleable via the navbar brand.</span>
+                    <div style="padding-bottom: 5vh; display: block;">
+                        <h4 class="text-white" style="font-size: 33px"><em>Content</em></h4>
+                        <a class="text-white display-4" style="font-size: 22px" asp-controller="Home" asp-action="Index" method="post">Map</a>
+                        <br />
+                        <a class="text-white display-4" style="font-size: 22px" asp-controller="Home" asp-action="Hazards" method="post">Hazards</a>
+                    </div>
                 </div>
             </div>
             <nav class="navbar fixed-bottom navbar-dark bg-dark">

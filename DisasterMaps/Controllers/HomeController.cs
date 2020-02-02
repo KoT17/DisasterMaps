@@ -89,6 +89,16 @@ namespace DisasterMaps.Controllers
         [HttpPost]
         public IActionResult Map(MapModel theModel)
         {
+            if (theModel.Address == null || theModel.City == null || theModel.State == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (theModel.Address.Length < 5 || theModel.City.Length < 2 || theModel.State.Length < 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
 
             HttpClient client = new HttpClient();
 
