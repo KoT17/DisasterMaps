@@ -2,17 +2,23 @@
     ViewData["Title"] = "Home Page";
 }
 
-<head>
-    <script>
-    function submit_by_name()
-    {
+    <head>
+        <script>
+            function submit_by_name() {
 
-    }
-    </script>
-    
-</head>
+            }
+        </script>
+        
+    </head>
+
+
 
 <div class="text-center">
+    <div style="padding-right: 50vw;">
+        <label class="checkbox-inline">
+            <input type="checkbox" id="toggleBtn" onclick="togHid()"><span style="padding-left: 8px; padding-top: 10px;">Enable Location</span></input>
+        </label>
+    </div>
     <h1 id="padTopBot" class="display-4">Disaster Maps</h1>
     <img src="https://image.flaticon.com/icons/svg/1788/1788740.svg" alt="Icon" style="width:250px;height:250px;">
 </div>
@@ -28,9 +34,48 @@
 
         <label>State</label>
         <input name="State" id="StateForm" class="form-control text-uppercase" placeholder="FL" maxlength="2">
+
+        <input name="Latitude" id="LatId" type="text" hidden>
+        <input name="Longitude" id="LngId" type="text" hidden>
+
     </div>
     <div>
         <input id="centerDiv"  class="btn btn-outline-dark btn-lg" type="submit" value="Submit" onclick="submit_by_name()">
     </div>
 </form>
 
+<script>
+
+    function togHid() {
+        var x = document.getElementById("padTopBotLg");
+        if (x.style.display === "none") {
+
+            x.style.display = "block";
+            
+            document.getElementById("LatId").value = "";
+            document.getElementById("LngId").value = "";
+
+        } else {
+
+            x.style.display = "none";
+            
+            getLocation();
+
+        }
+    }
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        alert("Geolocation is not supported by this browser");
+      }
+    }
+
+    function showPosition(position) {
+        document.getElementById("LatId").value = position.coords.latitude;
+        document.getElementById("LngId").value = position.coords.longitude;
+
+    }
+
+</script>

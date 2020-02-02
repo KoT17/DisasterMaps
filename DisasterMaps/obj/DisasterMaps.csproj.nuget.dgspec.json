@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ferra\\source\\repos\\DisasterMaps\\DisasterMaps\\DisasterMaps.csproj": {}
+    "C:\\Users\\ferra\\Source\\Repos\\DisasterMaps\\DisasterMaps\\DisasterMaps.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ferra\\source\\repos\\DisasterMaps\\DisasterMaps\\DisasterMaps.csproj": {
+    "C:\\Users\\ferra\\Source\\Repos\\DisasterMaps\\DisasterMaps\\DisasterMaps.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ferra\\source\\repos\\DisasterMaps\\DisasterMaps\\DisasterMaps.csproj",
+        "projectUniqueName": "C:\\Users\\ferra\\Source\\Repos\\DisasterMaps\\DisasterMaps\\DisasterMaps.csproj",
         "projectName": "DisasterMaps",
-        "projectPath": "C:\\Users\\ferra\\source\\repos\\DisasterMaps\\DisasterMaps\\DisasterMaps.csproj",
+        "projectPath": "C:\\Users\\ferra\\Source\\Repos\\DisasterMaps\\DisasterMaps\\DisasterMaps.csproj",
         "packagesPath": "C:\\Users\\ferra\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ferra\\source\\repos\\DisasterMaps\\DisasterMaps\\obj\\",
+        "outputPath": "C:\\Users\\ferra\\Source\\Repos\\DisasterMaps\\DisasterMaps\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
