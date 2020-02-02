@@ -1,0 +1,32 @@
+﻿@model HazardViewModel
+@{
+    ViewData["Title"] = "Hazards";
+}
+
+<h1>Hazards</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Hazard</th>
+            <th scope="col">Distance</th>
+            <th scope="col">Positive Reports</th>
+            <th scope="col">Negative Reports</th>
+        </tr>
+    </thead>
+    <tbody>
+    @{
+    for(int i = 0; i < 5; i++)
+    {
+    double distance = Math.Pow(Math.Pow(Model.Hazards[i].Longitude - Model.userLongitude, 2)+Math.Pow(Model.Hazards[i].Latitude - Model.userLatitude, 2), .5);
+    <tr scope="row">
+        <th scope="col">@Model.Hazards[i].Haz</th>
+        <th scope="col">@distance</th>
+        <th style="background-color: green" scope="col">@Model.Hazards[i].PosReport</th>
+        <th style="background-color: red" scope="col">@Model.Hazards[i].NegReport</th>
+    </tr>
+    }
+    }
+    </tbody>
+
+</table>
+

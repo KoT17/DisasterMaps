@@ -19,6 +19,30 @@ namespace DisasterMaps.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("DisasterMaps.Models.Hazard", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
+                    b.Property<int>("NegReport")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PosReport")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Hazards");
+                });
+
             modelBuilder.Entity("DisasterMaps.Models.Store", b =>
                 {
                     b.Property<string>("Name")
@@ -30,14 +54,14 @@ namespace DisasterMaps.Migrations
                     b.Property<bool>("IsOpen")
                         .HasColumnType("bit");
 
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
                     b.Property<DateTime>("OpeningTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<double>("XCoordinates")
-                        .HasColumnType("float");
-
-                    b.Property<double>("YCoordinates")
-                        .HasColumnType("float");
 
                     b.HasKey("Name");
 

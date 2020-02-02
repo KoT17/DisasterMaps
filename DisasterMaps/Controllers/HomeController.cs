@@ -24,6 +24,7 @@ namespace DisasterMaps.Controllers
 
         public IActionResult Index()
         {
+            printHazardDatabaseIds();
             /*var optionsBuilder = new DbContextOptionsBuilder<AppContext>();
 
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=disaster_database;Trusted_Connection=True;");
@@ -136,6 +137,31 @@ namespace DisasterMaps.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        public IActionResult Hazards(Hazard theModel)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<AppContext>();
+
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=disaster_database;Trusted_Connection=True;");
+            using (var context = new AppContext(optionsBuilder.Options))
+            {
+                Hazard temp = new Hazard { Latitude = theModel.Latitude, Longitude = theModel.Longitude, PosReport = theModel.PosReport, NegReport = theModel.NegReport };
+
+                context.Hazards.Add(temp);
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("Hazards", "Home");
+        }
+
+        public void printHazardDatabaseIds()
+        {
+            foreach (Hazard h in _context.Hazards)
+            {
+                Console.WriteLine(h.Haz);
+            }
         }
     }
 }

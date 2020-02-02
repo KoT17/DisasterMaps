@@ -8,7 +8,7 @@ namespace DisasterMaps.Models
     public class Hazard
     {
         [System.ComponentModel.DataAnnotations.Key]
-        public long Id { get; set; }
+        public long Haz { get; set; }
 
         public double Latitude { get; set; }
 
