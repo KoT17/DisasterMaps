@@ -243,19 +243,21 @@
         map.setMapTypeId('styled_map');
 
         //Marker Image
-        var image = 'https://img.icons8.com/dusk/64/000000/hazard-warning-flasher.png';
+        //var image = 'https://img.icons8.com/dusk/64/000000/hazard-warning-flasher.png';
+
+        var personImg = 'https://image.flaticon.com/icons/png/128/126/126486.png';
 
         var marker = new google.maps.Marker({
             position: {lat: @Model.Latitude, lng: @Model.Longitude},
             map: map,
-            icon: image,
+            icon: personImg,
             animation: google.maps.Animation.DROP,
-            title: 'UH OH! STINKY MONKEY ON ROAD!!',
+            title: 'This is you!',
             optimized: false
         });
 
         google.maps.event.addListener(marker, 'mousedown', function () {
-            console.debug("clicked");
+            $("#myModal").modal('show');
         });
 
         /* For adding a lot
@@ -265,7 +267,7 @@
                     addMarkerMethod();
                 }, i * 200);
                 }
-            }   
+            }
          */
     }
 </script>
@@ -274,3 +276,43 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW3iu6fobk-ymUoQHDTdaflFDyGofUfbQ&callback=initMap"
         async defer></script>
 
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Hazard</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <h1 class="col-form-label" style="font-size: 25px;">Title</h1>
+
+                    <div class="form-group">
+                        <label for="address-name" class="col-form-label">Address:</label>
+                        <p>11122 Testdrive Dr.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="city-name" class="col-form-label">City:</label>
+                        <p>Orlando</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="state-name" class="col-form-label">State:</label>
+                        <p>FL</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Description:</label>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+            </div>
+
+        </div>
+    </div>
+</div>
