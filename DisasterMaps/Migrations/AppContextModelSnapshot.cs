@@ -21,7 +21,7 @@ namespace DisasterMaps.Migrations
 
             modelBuilder.Entity("DisasterMaps.Models.Hazard", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("Haz")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -38,7 +38,7 @@ namespace DisasterMaps.Migrations
                     b.Property<int>("PosReport")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("Haz");
 
                     b.ToTable("Hazards");
                 });

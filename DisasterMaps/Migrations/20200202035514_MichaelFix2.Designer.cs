@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DisasterMaps.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20200201175619_AddedSplitCoor")]
-    partial class AddedSplitCoor
+    [Migration("20200202035514_MichaelFix2")]
+    partial class MichaelFix2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,30 @@ namespace DisasterMaps.Migrations
                 .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("DisasterMaps.Models.Hazard", b =>
+                {
+                    b.Property<long>("Haz")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
+                    b.Property<int>("NegReport")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PosReport")
+                        .HasColumnType("int");
+
+                    b.HasKey("Haz");
+
+                    b.ToTable("Hazards");
+                });
 
             modelBuilder.Entity("DisasterMaps.Models.Store", b =>
                 {
@@ -32,14 +56,14 @@ namespace DisasterMaps.Migrations
                     b.Property<bool>("IsOpen")
                         .HasColumnType("bit");
 
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
                     b.Property<DateTime>("OpeningTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<double>("XCoordinates")
-                        .HasColumnType("float");
-
-                    b.Property<double>("YCoordinates")
-                        .HasColumnType("float");
 
                     b.HasKey("Name");
 

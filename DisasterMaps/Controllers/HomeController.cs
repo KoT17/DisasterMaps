@@ -24,7 +24,6 @@ namespace DisasterMaps.Controllers
 
         public IActionResult Index()
         {
-            printHazardDatabaseIds();
             /*var optionsBuilder = new DbContextOptionsBuilder<AppContext>();
 
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=disaster_database;Trusted_Connection=True;");
@@ -113,6 +112,7 @@ namespace DisasterMaps.Controllers
             str += "address=" + addressNoSpace + "," + cityNoSpace + "," + theModel.State
                 + "&key=AIzaSyDW3iu6fobk-ymUoQHDTdaflFDyGofUfbQ";
 
+
             var res = client.GetAsync(str).Result.Content.ReadAsStringAsync().Result;
 
             string result1 = res.Substring(res.IndexOf("lat") + 7);
@@ -155,7 +155,24 @@ namespace DisasterMaps.Controllers
 
             return RedirectToAction("Hazards", "Home");
         }
+        public void CreateThreeEntries()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<AppContext>();
 
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=disaster_database;Trusted_Connection=True;");
+            using (var context = new AppContext(optionsBuilder.Options))
+            {
+                var temp = new Hazard { Longitude = 12, Latitude = 13, PosReport = 10, NegReport = 5 };
+                var temp1 = new Hazard { Longitude = 1, Latitude = 2, PosReport = 11, NegReport = 6 };
+                var temp2 = new Hazard { Longitude = 5, Latitude = 6, PosReport = 9, NegReport = 40 };
+
+                context.Hazards.Add(temp);
+                context.Hazards.Add(temp1);
+                context.Hazards.Add(temp2);
+
+                context.SaveChanges();
+            }
+        }
         public void printHazardDatabaseIds()
         {
             foreach (Hazard h in _context.Hazards)
